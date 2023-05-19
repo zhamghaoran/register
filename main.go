@@ -20,8 +20,9 @@ func main() {
 		NamespaceId:         "",
 		TimeoutMs:           10 * 1000,
 		NotLoadCacheAtStart: true,
-		LogDir:              "/tmp/nacos/log",
-		CacheDir:            "/tmp/nacos/cache",
+		LogDir:              "./log",
+		CacheDir:            "./cache",
+		LogLevel:            "debug",
 	}
 	namingClient, err := clients.NewNamingClient(
 		vo.NacosClientParam{
@@ -40,6 +41,11 @@ func main() {
 		Ip:          ip,
 		Port:        uint64(port),
 		ServiceName: serviceName,
+		Weight:      10,
+		Enable:      true,
+		Healthy:     true,
+		Metadata:    map[string]string{},
+		Ephemeral:   true,
 	}
 	success, err := namingClient.RegisterInstance(instance)
 	if err != nil {
